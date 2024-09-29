@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.ImageAutoClipper
+  name: ImageAutoClipper
+  version: 0.0.0.1
+  kind: app
+  description: |
+    Program for auto-clipping images by removing "stray" pixels, with adjustable parameters
+
+command:
+  - /opt/apps/io.github.ImageAutoClipper/files/bin/ImageAutoClipper
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/ImageAutoClipper.git
+    version: master
+    commit: 228bdb12ac278814b821db9fe134199e62abf429
+
+build: |
+  cd /project/linglong/sources/ImageAutoClipper.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
